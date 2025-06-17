@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI生成广告词展示</title>
+  <style>
+    body {
+      background-image: url('https://xihuangni.github.io/zhangjiajie.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: "Noto Serif SC", "Songti SC", serif;
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0;
+      padding: 0;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.55); /* 遮罩加深一点 */
+      padding: 80px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      letter-spacing: 1.5px;
+      color: #ffe4b5;
+    }
+
+    #ad-content {
+      font-size: 28px;
+      line-height: 1.9;
+      white-space: pre-line;
+      max-width: 800px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+      padding: 35px 40px;
+      background-color: rgba(30, 30, 30, 0.75); /* 深色背景，半透明 */
+      border-radius: 15px;
+      margin-bottom: 60px;
+      color: #fff; /* 保证文字清晰 */
+      font-weight: 500;
+    }
+
+    .next-button {
+      /* 用背景图作为按钮背景 */
+      background-image: url('https://xihuangni.github.io/button-bg.jpg');
+      background-size: 580px 580px;
+      background-position: -230px -250px;
+      background-repeat: no-repeat;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 36px;
+      font-size: 20px;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 3px 15px rgba(255, 102, 0, 0.7);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      user-select: none;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    }
+
+    .next-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 102, 0, 0.9);
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 32px;
+      }
+      #ad-content {
+        font-size: 30px;
+        padding: 25px 20px;
+      }
+      .next-button {
+        font-size: 18px;
+        padding: 12px 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>AI生成广告词展示</h1>
+
+    <div id="ad-content">正在加载广告词...</div>
+
+    <button class="next-button" onclick="location.href='image.html'">
+      下一页：图片展示
+    </button>
+  </div>
+
+  <script>
+    fetch('https://xihuangni.github.io/ad.txt')
+      .then(response => {
+        if (!response.ok) throw new Error('加载失败');
+        return response.text();
+      })
+      .then(text => {
+        document.getElementById('ad-content').textContent = text;
+      })
+      .catch(error => {
+        document.getElementById('ad-content').textContent = '加载广告词失败：' + error.message;
+      });
+  </script>
+</body>
+</html>
