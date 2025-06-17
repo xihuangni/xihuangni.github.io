@@ -126,8 +126,31 @@
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
     }
 
-    .modal:active {
-      display: none;
+    .arrow {
+      position: absolute;
+      top: 50%;
+      font-size: 48px;
+      color: #fff;
+      cursor: pointer;
+      padding: 10px;
+      background-color: rgba(0,0,0,0.4);
+      border-radius: 50%;
+      user-select: none;
+      transform: translateY(-50%);
+      z-index: 1100;
+      transition: background-color 0.3s;
+    }
+
+    .arrow:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .arrow.left {
+      left: 40px;
+    }
+
+    .arrow.right {
+      right: 40px;
     }
 
     @media (max-width: 600px) {
@@ -154,69 +177,83 @@
     <h1>AI生成图片展示</h1>
 
     <div class="image-grid">
-      <div>
-        <img src="https://xihuangni.github.io/images/云梦仙境.png" alt="图片1" onclick="openModal(this.src)">
-        <div class="img-title">云梦仙境</div>
-      </div>
-      <div>
-        <img src="https://xihuangni.github.io/images/天门云梯.png" alt="图片2" onclick="openModal(this.src)">
-        <div class="img-title">天门云梯</div>
-      </div>
-      <div>
-        <img src="https://xihuangni.github.io/images/幻峰秘境.png" alt="图片3" onclick="openModal(this.src)">
-        <div class="img-title">幻峰秘境</div>
-      </div>
-      <div>
-        <img src="https://xihuangni.github.io/img4.jpg" alt="图片4" onclick="openModal(this.src)">
-        <div class="img-title">空灵天境</div>
-      </div>
-      <div>
-        <img src="https://xihuangni.github.io/img5.jpg" alt="图片5" onclick="openModal(this.src)">
-        <div class="img-title">浮云石海</div>
-      </div>
-      <div>
-        <img src="https://xihuangni.github.io/img6.jpg" alt="图片6" onclick="openModal(this.src)">
-        <div class="img-title">天柱光影</div>
-      </div>
-      <div>
-        <img src="https://xihuangni.github.io/img7.jpg" alt="图片7" onclick="openModal(this.src)">
-        <div class="img-title">幽谷仙踪</div>
-      </div>
-      <div>
-        <img src="https://xihuangni.github.io/img8.jpg" alt="图片8" onclick="openModal(this.src)">
-        <div class="img-title">神隐秘境</div>
-      </div>
-      <div>
-        <img src="https://xihuangni.github.io/img9.jpg" alt="图片9" onclick="openModal(this.src)">
-        <div class="img-title">苍穹之上</div>
-      </div>
+      <div><img src="https://xihuangni.github.io/images/云梦仙境.png" alt="图片1" onclick="openModal(this.src)"><div class="img-title">云梦仙境</div></div>
+      <div><img src="https://xihuangni.github.io/images/天门云梯.png" alt="图片2" onclick="openModal(this.src)"><div class="img-title">天门云梯</div></div>
+      <div><img src="https://xihuangni.github.io/images/幻峰秘境.png" alt="图片3" onclick="openModal(this.src)"><div class="img-title">幻峰秘境</div></div>
+      <div><img src="https://xihuangni.github.io/img4.jpg" alt="图片4" onclick="openModal(this.src)"><div class="img-title">空灵天境</div></div>
+      <div><img src="https://xihuangni.github.io/img5.jpg" alt="图片5" onclick="openModal(this.src)"><div class="img-title">浮云石海</div></div>
+      <div><img src="https://xihuangni.github.io/img6.jpg" alt="图片6" onclick="openModal(this.src)"><div class="img-title">天柱光影</div></div>
+      <div><img src="https://xihuangni.github.io/img7.jpg" alt="图片7" onclick="openModal(this.src)"><div class="img-title">幽谷仙踪</div></div>
+      <div><img src="https://xihuangni.github.io/img8.jpg" alt="图片8" onclick="openModal(this.src)"><div class="img-title">神隐秘境</div></div>
+      <div><img src="https://xihuangni.github.io/img9.jpg" alt="图片9" onclick="openModal(this.src)"><div class="img-title">苍穹之上</div></div>
+      <div><img src="https://xihuangni.github.io/img10.jpg" alt="图片10" onclick="openModal(this.src)"><div class="img-title">暮色峰丛</div></div>
     </div>
 
     <div class="button-row">
-      <button class="next-button" onclick="location.href='index.html'">
-        上一页：广告词展示
-      </button>
-      <button class="next-button" onclick="location.href='video.html'">
-        下一页：视频展示
-      </button>
+      <button class="next-button" onclick="location.href='index.html'">上一页：广告词展示</button>
+      <button class="next-button" onclick="location.href='video.html'">下一页：视频展示</button>
     </div>
   </div>
 
-  <!-- 图片放大弹窗 -->
-  <div class="modal" id="imgModal" onclick="closeModal()">
+  <!-- 弹窗 + 左右箭头 -->
+  <div class="modal" id="imgModal" onclick="closeModal(event)">
     <img id="modalImg" src="" alt="大图预览" />
+    <div class="arrow left" onclick="showPrev(event)">&#10094;</div>
+    <div class="arrow right" onclick="showNext(event)">&#10095;</div>
   </div>
 
   <script>
+    const imageList = [
+      "https://xihuangni.github.io/images/云梦仙境.png",
+      "https://xihuangni.github.io/images/天门云梯.png",
+      "https://xihuangni.github.io/images/幻峰秘境.png",
+      "https://xihuangni.github.io/img4.jpg",
+      "https://xihuangni.github.io/img5.jpg",
+      "https://xihuangni.github.io/img6.jpg",
+      "https://xihuangni.github.io/img7.jpg",
+      "https://xihuangni.github.io/img8.jpg",
+      "https://xihuangni.github.io/img9.jpg",
+      "https://xihuangni.github.io/img10.jpg"
+    ];
+
+    let currentIndex = 0;
+
     function openModal(src) {
+      currentIndex = imageList.indexOf(src);
       const modal = document.getElementById("imgModal");
       const modalImg = document.getElementById("modalImg");
       modalImg.src = src;
       modal.style.display = "flex";
+      updateArrows();
     }
 
-    function closeModal() {
-      document.getElementById("imgModal").style.display = "none";
+    function closeModal(event) {
+      if (event.target.id === "imgModal") {
+        document.getElementById("imgModal").style.display = "none";
+      }
+    }
+
+    function showPrev(event) {
+      event.stopPropagation();
+      if (currentIndex > 0) {
+        currentIndex--;
+        document.getElementById("modalImg").src = imageList[currentIndex];
+        updateArrows();
+      }
+    }
+
+    function showNext(event) {
+      event.stopPropagation();
+      if (currentIndex < imageList.length - 1) {
+        currentIndex++;
+        document.getElementById("modalImg").src = imageList[currentIndex];
+        updateArrows();
+      }
+    }
+
+    function updateArrows() {
+      document.querySelector(".arrow.left").style.display = (currentIndex === 0) ? "none" : "block";
+      document.querySelector(".arrow.right").style.display = (currentIndex === imageList.length - 1) ? "none" : "block";
     }
   </script>
 </body>
