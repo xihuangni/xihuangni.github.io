@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>AI 旅游推广展示</title>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #f5f5f5;
+    }
+
+    #content {
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      background-color: #008CBA;
+      color: white;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    button:hover {
+      background-color: #006f98;
+    }
+
+    img, video {
+      max-width: 80%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 显示内容的区域 -->
+  <div id="content">
+    <!-- 初始显示广告词 -->
+    <p>开启一场心灵的漫游——探索你从未抵达的世界。</p>
+  </div>
+
+  <!-- 控制切换内容的按钮 -->
+  <button onclick="nextPage()">下一页：图片展示</button>
+
+  <script>
+    // 定义当前显示到哪一页：0=广告词，1=图片，2=视频
+    let currentPage = 0;
+
+    function nextPage() {
+      const contentDiv = document.getElementById('content');
+      const button = document.querySelector('button');
+
+      if (currentPage === 0) {
+        // 切换到第2页：图片展示
+        contentDiv.innerHTML = '<img src="your-image.jpg" alt="AI生成的旅游宣传图">';
+        button.innerText = '下一页：视频展示';
+        currentPage = 1;
+      } else if (currentPage === 1) {
+        // 切换到第3页：视频展示
+        contentDiv.innerHTML = `
+          <video controls>
+            <source src="your-video.mp4" type="video/mp4">
+            您的浏览器不支持视频播放。
+          </video>`;
+        button.innerText = '回到首页：广告词';
+        currentPage = 2;
+      } else {
+        // 回到第一页：广告词
+        contentDiv.innerHTML = '<p>开启一场心灵的漫游——探索你从未抵达的世界。</p>';
+        button.innerText = '下一页：图片展示';
+        currentPage = 0;
+      }
+    }
+  </script>
+
+</body>
+</html>
