@@ -202,58 +202,51 @@
   </div>
 
   <script>
-    const imageList = [
-      "https://xihuangni.github.io/images/云梦仙境.png",
-      "https://xihuangni.github.io/images/天门云梯.png",
-      "https://xihuangni.github.io/images/幻峰秘境.png",
-      "https://xihuangni.github.io/img4.jpg",
-      "https://xihuangni.github.io/img5.jpg",
-      "https://xihuangni.github.io/img6.jpg",
-      "https://xihuangni.github.io/img7.jpg",
-      "https://xihuangni.github.io/img8.jpg",
-      "https://xihuangni.github.io/img9.jpg",
-      "https://xihuangni.github.io/img10.jpg"
-    ];
+  let imageList = [];
+  let currentIndex = 0;
 
-    let currentIndex = 0;
+  // 页面加载时自动获取所有图片的 src 列表
+  window.addEventListener('DOMContentLoaded', () => {
+    imageList = Array.from(document.querySelectorAll('.image-grid img')).map(img => img.src);
+  });
 
-    function openModal(src) {
-      currentIndex = imageList.indexOf(src);
-      const modal = document.getElementById("imgModal");
-      const modalImg = document.getElementById("modalImg");
-      modalImg.src = src;
-      modal.style.display = "flex";
+  function openModal(src) {
+    currentIndex = imageList.indexOf(src);
+    if (currentIndex === -1) currentIndex = 0; // fallback
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+    modalImg.src = src;
+    modal.style.display = "flex";
+    updateArrows();
+  }
+
+  function closeModal(event) {
+    if (event.target.id === "imgModal") {
+      document.getElementById("imgModal").style.display = "none";
+    }
+  }
+
+  function showPrev(event) {
+    event.stopPropagation();
+    if (currentIndex > 0) {
+      currentIndex--;
+      document.getElementById("modalImg").src = imageList[currentIndex];
       updateArrows();
     }
+  }
 
-    function closeModal(event) {
-      if (event.target.id === "imgModal") {
-        document.getElementById("imgModal").style.display = "none";
-      }
+  function showNext(event) {
+    event.stopPropagation();
+    if (currentIndex < imageList.length - 1) {
+      currentIndex++;
+      document.getElementById("modalImg").src = imageList[currentIndex];
+      updateArrows();
     }
+  }
 
-    function showPrev(event) {
-      event.stopPropagation();
-      if (currentIndex > 0) {
-        currentIndex--;
-        document.getElementById("modalImg").src = imageList[currentIndex];
-        updateArrows();
-      }
-    }
+  function updateArrows() {
+    document.querySelector(".arrow.left").style.display = (currentIndex === 0) ? "none" : "block";
+    document.querySelector(".arrow.right").style.display = (currentIndex === imageList.length - 1) ? "none" : "block";
+  }
+</script>
 
-    function showNext(event) {
-      event.stopPropagation();
-      if (currentIndex < imageList.length - 1) {
-        currentIndex++;
-        document.getElementById("modalImg").src = imageList[currentIndex];
-        updateArrows();
-      }
-    }
-
-    function updateArrows() {
-      document.querySelector(".arrow.left").style.display = (currentIndex === 0) ? "none" : "block";
-      document.querySelector(".arrow.right").style.display = (currentIndex === imageList.length - 1) ? "none" : "block";
-    }
-  </script>
-</body>
-</html>
