@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI生成图片展示</title>
+  <style>
+    body {
+      background-image: url('https://xihuangni.github.io/zhangjiajie.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: "Noto Serif SC", "Songti SC", serif;
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0;
+      padding: 0;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.55);
+      padding: 80px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      letter-spacing: 1.5px;
+      color: #ffe4b5;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      width: 100%;
+      padding: 20px;
+      background-color: rgba(30, 30, 30, 0.75);
+      border-radius: 15px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+      margin-bottom: 60px;
+    }
+
+    .image-grid div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .image-grid img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .image-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    .img-title {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 18px;
+      color: #f0e6d6;
+      font-weight: 500;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .button-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .next-button {
+      background-image: url('https://xihuangni.github.io/button-bg.jpg');
+      background-size: 580px 580px;
+      background-position: -220px -250px;
+      background-repeat: no-repeat;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 36px;
+      font-size: 20px;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 3px 15px rgba(255, 102, 0, 0.7);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      user-select: none;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    }
+
+    .next-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 102, 0, 0.9);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal:active {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 32px;
+      }
+      .image-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        padding: 15px;
+      }
+      .next-button {
+        font-size: 18px;
+        padding: 12px 28px;
+      }
+      .button-row {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>AI生成图片展示</h1>
+
+    <div class="image-grid">
+      <div>
+        <img src="https://xihuangni.github.io/云梦仙境.png" alt="图片1" onclick="openModal(this.src)">
+        <div class="img-title">云梦仙境</div>
+      </div>
+      <div>
+        <img src="https://xihuangni.github.io/img2.jpg" alt="图片2" onclick="openModal(this.src)">
+        <div class="img-title">幻影峰林</div>
+      </div>
+      <div>
+        <img src="https://xihuangni.github.io/img3.jpg" alt="图片3" onclick="openModal(this.src)">
+        <div class="img-title">晨雾山谷</div>
+      </div>
+      <div>
+        <img src="https://xihuangni.github.io/img4.jpg" alt="图片4" onclick="openModal(this.src)">
+        <div class="img-title">空灵天境</div>
+      </div>
+      <div>
+        <img src="https://xihuangni.github.io/img5.jpg" alt="图片5" onclick="openModal(this.src)">
+        <div class="img-title">浮云石海</div>
+      </div>
+      <div>
+        <img src="https://xihuangni.github.io/img6.jpg" alt="图片6" onclick="openModal(this.src)">
+        <div class="img-title">天柱光影</div>
+      </div>
+      <div>
+        <img src="https://xihuangni.github.io/img7.jpg" alt="图片7" onclick="openModal(this.src)">
+        <div class="img-title">幽谷仙踪</div>
+      </div>
+      <div>
+        <img src="https://xihuangni.github.io/img8.jpg" alt="图片8" onclick="openModal(this.src)">
+        <div class="img-title">神隐秘境</div>
+      </div>
+      <div>
+        <img src="https://xihuangni.github.io/img9.jpg" alt="图片9" onclick="openModal(this.src)">
+        <div class="img-title">苍穹之上</div>
+      </div>
+      <div>
+        <img src="https://xihuangni.github.io/img10.jpg" alt="图片10" onclick="openModal(this.src)">
+        <div class="img-title">暮色峰丛</div>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="next-button" onclick="location.href='index.html'">
+        上一页：广告词展示
+      </button>
+      <button class="next-button" onclick="location.href='video.html'">
+        下一页：视频展示
+      </button>
+    </div>
+  </div>
+
+  <!-- 图片放大弹窗 -->
+  <div class="modal" id="imgModal" onclick="closeModal()">
+    <img id="modalImg" src="" alt="大图预览" />
+  </div>
+
+  <script>
+    function openModal(src) {
+      const modal = document.getElementById("imgModal");
+      const modalImg = document.getElementById("modalImg");
+      modalImg.src = src;
+      modal.style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("imgModal").style.display = "none";
+    }
+  </script>
+</body>
+</html>
