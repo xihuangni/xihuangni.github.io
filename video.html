@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI生成旅游推广视频展示</title>
+  <style>
+    body {
+      background-image: url('https://xihuangni.github.io/images/zhangjiajie.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: "Noto Serif SC", "Songti SC", serif;
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0;
+      padding: 0;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.55);
+      padding: 80px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      letter-spacing: 1.5px;
+      color: #ffe4b5;
+    }
+
+    .video-container {
+      max-width: 1000px;
+      width: 100%;
+      padding: 20px;
+      background-color: rgba(30, 30, 30, 0.75);
+      border-radius: 15px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+      margin-bottom: 60px;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .next-button {
+      background-image: url('https://xihuangni.github.io/images/button-bg.jpg');
+      background-size: 580px 580px;
+      background-position: -220px -250px;
+      background-repeat: no-repeat;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 36px;
+      font-size: 20px;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 3px 15px rgba(255, 102, 0, 0.7);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      user-select: none;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    }
+
+    .next-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 102, 0, 0.9);
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 32px;
+      }
+
+      .next-button {
+        font-size: 18px;
+        padding: 12px 28px;
+      }
+
+      .video-container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>AI生成旅游推广视频展示</h1>
+
+    <div class="video-container">
+      <video controls poster="https://xihuangni.github.io/images/video-poster.jpg">
+        <source src="https://xihuangni.github.io/videos/zhangjiajie_promo.mp4" type="video/mp4">
+        您的浏览器不支持视频播放。
+      </video>
+    </div>
+
+    <div class="button-row">
+      <button class="next-button" onclick="location.href='image.html'">上一页：图片展示</button>
+    </div>
+  </div>
+</body>
+</html>
 
